@@ -1,6 +1,6 @@
-# Project Name
+# Light Sound Device
 
-A brief description of your project.
+Code for the 2024 Advanced Interface Design course project at UPF, Barcelona 
 
 ## Requirements
 
@@ -10,7 +10,7 @@ Node
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/your-repo-name.git
+    git clone https://github.com/inspektral/aid.git
     ```
 2. Navigate to the project directory:
     ```sh
@@ -48,4 +48,4 @@ npm start
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU GENERAL PUBLIC LICENSE - see the [LICENSE](LICENSE) file for details.
