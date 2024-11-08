@@ -49,6 +49,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+app.get('/visual', (req, res) => {
+    res.sendFile(path.join(__dirname, 'visuals.html'));
+});
+
 io.on('connection', (socket) => {
     console.log('a user connected');
 });
@@ -56,3 +60,5 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
     console.log(`Express server listening at http://localhost:${port}`);
 });
+
+app.use(express.static(path.join(__dirname, 'static')));
