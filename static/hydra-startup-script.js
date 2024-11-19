@@ -1,4 +1,4 @@
 /* eslint-disable no-undef */
 // @ts-nocheck
 
-osc().out(o0)
+osc(() => x).modulateScrollX(o0).out(o0)

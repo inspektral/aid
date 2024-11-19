@@ -9,6 +9,28 @@
     <script src="./global-hydra.js" defer></script>
     <script src="./hydra-startup-script.js" defer></script>
 
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        x=5
+        y=5
+
+        inputs = {}
+
+        
+        socket.on('oscMessage', function (message) {
+
+            for (const [key, value] of Object.entries(message)) {
+                inputs[key] = value;
+                console.log('OSC message received:', message);
+                }
+
+            x = parseFloat(inputs['/in1'])
+            y = parseFloat(inputs['/in2'])  
+        });
+    </script>
+
 </head>
 <body>
     <canvas id="main-hydra-canvas"></canvas>

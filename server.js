@@ -12,6 +12,7 @@ const io = socketIo(server);
 const port = 3333;
 
 let inputs = {};
+let outputs = {};
 
 const udpPort = new osc.UDPPort({
     localAddress: "0.0.0.0",
@@ -37,6 +38,9 @@ inputMidi.on('message', (deltaTime, message) => {
     messageList = message.toString().split(",");
     inputs['/midi/'+messageList[0]+'/'+messageList[1]] = message[2];
     io.emit('oscMessage', inputs);
+
+    outputs = calcultation();
+    io.emit('oscMessage', outputs);
 });
 
 inputMidi.openPort(0);
@@ -62,3 +66,14 @@ server.listen(port, () => {
 });
 
 app.use(express.static(path.join(__dirname, 'static')));
+
+function calcultation() {
+    let output = {};
+    if (inputs['/midi/176/18']) {
+        output['/in1'] = inputs['/midi/176/18'];
+    }
+    if (inputs['/annotation/palmBase']) {
+        output['/in2'] = inputs['/annotation/palmBase'][0]/50;
+    }
+    return output;
+}

@@ -1,0 +1,9 @@
+#N canvas 903 357 716 500 12;
+#X obj 174 160 sig~;
+#X obj 157 96 nbx 5 17 -1e+37 1e+37 0 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 256;
+#X obj 229 219 nn~ musicnet.ts decode;
+#X obj 222 317 dac~;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 2 0 3 0;
+#X connect 2 0 3 1;
