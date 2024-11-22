@@ -26,10 +26,18 @@ udpPort.on("message", function (oscMessage) {
         values[i] = parseFloat(values[i]).toFixed(2);
     }
     inputs[oscMessage.address] = values;
-    io.emit('oscMessage', inputs);
+    outputs = calcultation();
+    sendOutputs(outputs);
 });
 
 udpPort.open();
+
+const udpOutput = new osc.UDPPort({
+    remoteAddress: "127.0.0.1", // Sending to localhost
+    remotePort: 5556 // Change this to the desired remote port
+});
+
+udpOutput.open();
 
 const inputMidi = new midi.Input();
 
@@ -40,10 +48,14 @@ inputMidi.on('message', (deltaTime, message) => {
     io.emit('oscMessage', inputs);
 
     outputs = calcultation();
-    io.emit('oscMessage', outputs);
+    sendOutputs(outputs);
 });
 
-inputMidi.openPort(0);
+try {
+    inputMidi.openPort(0);
+} catch (error) {
+    console.error('Error opening MIDI port:', error);
+}
 
 app.post('/sendOsc', express.json(), (req, res) => {
     const { address, args } = req.body;
@@ -66,6 +78,22 @@ server.listen(port, () => {
 });
 
 app.use(express.static(path.join(__dirname, 'static')));
+
+function sendOutputs(outputs) {
+    
+    for (const key in outputs) {
+        const value = outputs[key];
+        const address = key;
+        const args = [value];
+        const message = { address, args };
+        console.log("Sending OSC message:", message);
+        udpOutput.send(message);
+    }
+
+    io.emit('oscMessage', outputs);
+
+}
+
 
 function calcultation() {
     let output = {};
