@@ -7,7 +7,7 @@
 
 solid().out(o0)
 
-shape(() => x).scale(1.2).scrollX(0.3).modulateScrollY(o1).modulateScrollX(o1).scrollY(0.98,0.05).add(src(o1).color(0.4,0.9,0.85).scrollX(0.99), 0.99).out(o1)
+shape(() => x).scale(1.2).scrollX(() => y/640).modulateScrollY(o1).modulateScrollX(o1).scrollY(0.98,0.05).add(src(o1).color(0.4,0.9,0.85).scrollX(0.99), 0.99).out(o1)
 
 src(o1).add(src(o2).scale(1.005), 0.7).out(o2)
 

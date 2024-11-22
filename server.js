@@ -14,6 +14,7 @@ const port = 3333;
 let inputs = {};
 let outputs = {};
 
+// OSC from handpose
 const udpPort = new osc.UDPPort({
     localAddress: "0.0.0.0",
     localPort: 5555
@@ -32,6 +33,7 @@ udpPort.on("message", function (oscMessage) {
 
 udpPort.open();
 
+// OSC to PureData
 const udpOutput = new osc.UDPPort({
     remoteAddress: "127.0.0.1", // Sending to localhost
     remotePort: 5556 // Change this to the desired remote port
@@ -100,8 +102,8 @@ function calcultation() {
     if (inputs['/midi/176/18']) {
         output['/in1'] = inputs['/midi/176/18'];
     }
-    if (inputs['/annotation/palmBase']) {
-        output['/in2'] = inputs['/annotation/palmBase'][0]/50;
+    if (inputs['/annotations/palmBase']) {
+        output['/in2'] = inputs['/annotations/palmBase'][0];
     }
     return output;
 }
