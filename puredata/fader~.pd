@@ -1,0 +1,15 @@
+#N canvas 234 234 1167 687 12;
+#X obj 116 110 vsl 19 162 1e-05 4 1 0 empty empty empty 0 -9 0 12 #fcfcfc #000000 #000000 0 1;
+#X obj 400 362 line~;
+#X floatatom 107 283 5 0 0 0 - - - 0;
+#X obj 315 427 *~;
+#X obj 421 412 expr 20 * log10($f1);
+#X obj 190 158 inlet~;
+#X obj 227 533 outlet~;
+#X connect 0 0 1 0;
+#X connect 0 0 4 0;
+#X connect 1 0 3 1;
+#X connect 3 0 6 0;
+#X connect 4 0 2 0;
+#X connect 5 0 3 0;
+#X coords 0 -1 1 1 50 210 2 100 100;

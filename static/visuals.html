@@ -14,7 +14,7 @@
         const socket = io();
 
         x=5
-        y=5
+        y=320
 
         inputs = {}
 
@@ -26,8 +26,13 @@
                 console.log('OSC message received:', message);
                 }
 
-            x = parseFloat(inputs['/in1'])
-            y = parseFloat(inputs['/in2'])  
+            if (inputs.hasOwnProperty('/in1')) {
+            x = parseFloat(inputs['/in1']);
+            }
+
+            if (inputs.hasOwnProperty('/in2')) {
+                y = parseFloat(inputs['/in2']);
+            }
         });
         
     </script>

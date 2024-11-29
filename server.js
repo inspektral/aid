@@ -84,7 +84,7 @@ app.use(express.static(path.join(__dirname, 'static')));
 function sendOutputs(outputs) {
     
     for (const key in outputs) {
-        const value = outputs[key];
+        const value = parseFloat(outputs[key]);
         const address = key;
         const args = [value];
         const message = { address, args };
