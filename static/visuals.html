@@ -19,7 +19,7 @@
         inputs = {}
 
         
-        socket.on('oscMessage', function (message) {
+        socket.on('outputs', function (message) {
 
             for (const [key, value] of Object.entries(message)) {
                 inputs[key] = value;
