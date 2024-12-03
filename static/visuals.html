@@ -10,29 +10,20 @@
     <script src="./hydra-startup-script.js" defer></script>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script>
+    <script type="module">
+        import data from './data.js';
         const socket = io();
 
-        x=5
-        y=320
-
-        inputs = {}
-
+        window.data = data();
         
         socket.on('outputs', function (message) {
 
             for (const [key, value] of Object.entries(message)) {
-                inputs[key] = value;
                 console.log('OSC message received:', message);
+                let keyNoSlash = key.split("/")[1];
+                console.log('keyNoSlash:', keyNoSlash);
+                window.data[keyNoSlash] = parseFloat(value);
                 }
-
-            if (inputs.hasOwnProperty('/in1')) {
-            x = parseFloat(inputs['/in1']);
-            }
-
-            if (inputs.hasOwnProperty('/in2')) {
-                y = parseFloat(inputs['/in2']);
-            }
         });
         
     </script>

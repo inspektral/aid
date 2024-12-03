@@ -14,6 +14,27 @@ const port = 3333;
 let inputs = {};
 let data = {};
 
+// map for pot1 pot2 pot3 pot4 pot5 pot6 pot7 pot8 fader1 fader2 fader3 fader4 fader5 fader6 fader7 fader8
+
+let midiMap = {
+    18: "pot1",
+    22: "pot2",
+    26: "pot3",
+    30: "pot4",
+    48: "pot5",
+    52: "pot6",
+    56: "pot7",
+    60: "pot8",
+    19: "fader1",
+    23: "fader2",
+    27: "fader3",
+    31: "fader4",
+    49: "fader5",
+    53: "fader6",
+    57: "fader7",
+    61: "fader8"
+};
+
 // OSC from handpose
 const udpPort = new osc.UDPPort({
     localAddress: "0.0.0.0",
@@ -121,8 +142,8 @@ function processInputs(inputs) {
     Object.keys(inputs)
         .filter(key => key.startsWith('/midi'))
         .forEach(key => {
-            outKey = key.split('/').pop();
-            data["/"+outKey] = parseFloat(inputs[key]/127.0).toFixed(2);
+            mapKey = key.split('/').pop();
+            data["/"+midiMap[mapKey]] = parseFloat(inputs[key]/127.0).toFixed(5);
     });
 
     Object.keys(inputs)
