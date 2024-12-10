@@ -20,18 +20,10 @@ const data = () => {
         pot2: 0.0,
         pot3: 0.0,
         pot4: 0.0,
-        pot5: 0.0,
-        pot6: 0.0,
-        pot7: 0.0,
-        pot8: 0.0,
         fader1: 0.0,
         fader2: 0.0,
         fader3: 0.0,
-        fader4: 0.0,
-        fader5: 0.0,
-        fader6: 0.0,
-        fader7: 0.0,
-        fader8: 0.0
+        fader4: 0.0
     };
 };
 

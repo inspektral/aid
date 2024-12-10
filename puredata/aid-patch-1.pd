@@ -1,4 +1,4 @@
-#N canvas 1064 1016 1920 1037 12;
+#N canvas 1863 1019 1920 1037 12;
 #X obj 544 986 dac~;
 #X obj 547 146 osc~ 440;
 #X obj 550 106 hsl 162 19 20 5000 1 0 empty empty empty -2 -10 0 12 #fcfcfc #000000 #000000 0 1;
@@ -18,7 +18,7 @@
 #X obj 819 537 expr~ $v1*$f2 + $f3;
 #X obj 925 621 expr~ $v1*$f2 + $f3;
 #X obj 872 583 expr~ $v1*$f2 + $f3;
-#X obj 787 176 fader~;
+#X obj 787 197 fader~;
 #X obj 546 182 fader~;
 #X obj 440 149 noise~;
 #X obj 439 184 fader~;

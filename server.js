@@ -21,18 +21,10 @@ let midiMap = {
     22: "pot2",
     26: "pot3",
     30: "pot4",
-    48: "pot5",
-    52: "pot6",
-    56: "pot7",
-    60: "pot8",
     19: "fader1",
     23: "fader2",
     27: "fader3",
     31: "fader4",
-    49: "fader5",
-    53: "fader6",
-    57: "fader7",
-    61: "fader8"
 };
 
 // OSC from handpose
@@ -106,6 +98,15 @@ app.get('/visual', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('a user connected');
+    socket.on('handpose', (data) => {
+        console.log('Hand pose data received:', data);
+        // Handle the received hand pose data
+        console.log(data);
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Client disconnected');
+    });
 });
 
 server.listen(port, () => {
@@ -159,14 +160,6 @@ function processInputs(inputs) {
                 data["/"+outKey+"_y"] = parseFloat(inputs[key][10]/1000.0).toFixed(5);
             }
     });
-    
-
-    if (inputs['/midi/176/18']) {
-        data['/in1'] = inputs['/midi/176/18'];
-    }
-    if (inputs['/annotations/palmBase']) {
-        data['/in2'] = inputs['/annotations/palmBase'][0];
-    }
     return data;
 }
 

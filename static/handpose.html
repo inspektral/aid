@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Pose Detection</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.2/p5.js"></script>
+    <script src="https://unpkg.com/ml5@1.2.1/dist/ml5.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <h1>Hand Pose Detection</h1>
+    <script>
+
+        const socket = io();
+
+        let video;
+        let handPose;
+        let predictions = [];
+
+        function preload() {
+            console.log('preload');
+            handPose = ml5.handPose();
+        }
+
+        function setup() {
+            createCanvas(640, 480);
+            video = createCapture(VIDEO);
+            video.size(width, height);
+
+            handPose.detectStart(video, gotHands);
+
+            video.hide();
+        }
+
+        function measureDistance(pointA, pointB) {
+            if (!pointA || !pointB) {
+                return 0;
+            }
+            return Math.sqrt((pointA.x - pointB.x) ** 2 + (pointA.y - pointB.y) ** 2);
+        }
+
+
+        function thumbToFingersDistances() {
+            let data = {};
+
+            let thumb = predictions[0].thumb_tip;
+            let index = predictions[0].index_finger_tip;
+            let middle = predictions[0].middle_finger_tip;
+            let ring = predictions[0].ring_finger_tip;
+            let pinky = predictions[0].pinky_finger_tip;
+
+            data.thumbIndex = measureDistance(thumb, index);
+            data.thumbMiddle = measureDistance(thumb, middle);
+            data.thumbRing = measureDistance(thumb, ring);
+            data.thumbPinky = measureDistance(thumb, pinky);
+
+            return data;
+        }
+
+        function gotHands(results) {
+            predictions = results;
+            console.log(predictions);
+            data = {};
+            if (predictions.length > 0 && predictions[0].wrist) {
+                wrist_coord = {x: predictions[0].wrist.x, y: predictions[0].wrist.y};
+                data.wrist = wrist_coord;
+                data.distances = thumbToFingersDistances();
+            }
+            if (data && data.wrist) {
+                socket.emit('handpose', data);
+            }
+        }
+    
+    </script>
+</body>
+</html>
