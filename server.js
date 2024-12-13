@@ -21,10 +21,18 @@ let midiMap = {
     22: "pot2",
     26: "pot3",
     30: "pot4",
+    48: "pot5",
+    52: "pot6",
+    56: "pot7",
+    60: "pot8",
     19: "fader1",
     23: "fader2",
     27: "fader3",
     31: "fader4",
+    49: "fader5",
+    53: "fader6",
+    57: "fader7",
+    61: "fader8"
 };
 
 // OSC from handpose
