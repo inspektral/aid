@@ -10,8 +10,6 @@ a.show()
 a.setBins(1)
 
 shape(1000).scale(() => Math.max(0.001, window.data.pot1*a.fft[0]))
-    .scrollX(() => 1)
-    .scrollY(() => 1)
     .modulateScrollY(o1)
     .modulateScrollX(o1)
     .scrollY(0.98,0.05)

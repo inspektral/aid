@@ -102,6 +102,7 @@ io.on('connection', (socket) => {
         console.log('Hand pose data received:', data);
         // Handle the received hand pose data
         console.log(data);
+        sendOutputs(data);
     });
 
     socket.on('disconnect', () => {
@@ -125,7 +126,10 @@ function sendOutputs(outputs) {
     
     for (const key in outputs) {
         const value = parseFloat(outputs[key]);
-        const address = key;
+        let address = key;
+        if (!address.startsWith('/')) {
+            address = '/' + address;
+        }
         const args = [value];
         const message = { address, args };
         console.log("Sending OSC message:", message);
